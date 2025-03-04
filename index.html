@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="#">Reflectly</a>
@@ -28,7 +27,6 @@
   </div>
 </nav>
 
-<!-- Toast Notification -->
 <div class="toast-container position-fixed top-0 end-0 p-3">
   <div id="toastNotification" class="toast align-items-center text-bg-success border-0" role="alert">
     <div class="d-flex">
@@ -38,7 +36,6 @@
   </div>
 </div>
 
-<!-- Sign-Up Form -->
 <div id="signup-form" class="container mt-4" style="display: none;">
   <div class="card p-4 shadow">
     <h2 class="text-center">Sign Up</h2>
@@ -48,7 +45,6 @@
   </div>
 </div>
 
-<!-- Login Form -->
 <div id="login-form" class="container mt-4">
   <div class="card p-4 shadow">
     <h2 class="text-center">Log In</h2>
@@ -58,7 +54,6 @@
   </div>
 </div>
 
-<!-- Dashboard -->
 <section id="dashboard" class="container mt-4" style="display: none;">
   <h2 class="text-center">Journaling Dashboard</h2>
   <div class="card p-4 shadow mt-3">
@@ -67,13 +62,31 @@
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="text-center mt-5 py-3 bg-dark text-light">
-  <p>&copy; 2024 Reflectly. All Rights Reserved.</p>
+<section id="journal-entries" class="container-fluid d-flex flex-column align-items-center mt-4" style="display: none;">
+  <div class="card p-4 shadow" style="max-width: 800px; width: 100%;">
+    <h2 class="text-center">Your Journal Entries</h2>
+    <ul id="entries-list" class="list-group mb-3"></ul>
+    <nav>
+      <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
+  </div>
+</section>
+
+<footer class="bg-dark text-light py-4 mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <p>&copy; 2025 Reflectly. All Rights Reserved.</p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <a href="#" class="text-light me-3">Privacy Policy</a>
+        <a href="#" class="text-light">Terms of Service</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <script>
-  // Persistent Dark Mode
   function applyDarkMode() {
     let theme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-bs-theme', theme);
@@ -87,12 +100,11 @@
   }
 
   document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
-  applyDarkMode(); // Apply saved theme on load
+  applyDarkMode();
 
   function showToast(message) {
     document.getElementById('toastMessage').innerText = message;
-    let toast = new bootstrap.Toast(document.getElementById('toastNotification'));
-    toast.show();
+    new bootstrap.Toast(document.getElementById('toastNotification')).show();
   }
 
   function showSignUp() {
@@ -114,13 +126,16 @@
       document.getElementById('signup-link').style.display = 'none';
       document.getElementById('logout-link').style.display = 'inline-block';
       document.getElementById('dashboard').style.display = 'block';
+      document.getElementById('journal-entries').style.display = 'block';
       document.getElementById('login-form').style.display = 'none';
       document.getElementById('signup-form').style.display = 'none';
+      loadEntries();
     } else {
       document.getElementById('login-link').style.display = 'inline-block';
       document.getElementById('signup-link').style.display = 'inline-block';
       document.getElementById('logout-link').style.display = 'none';
       document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('journal-entries').style.display = 'none';
       document.getElementById('login-form').style.display = 'block';
     }
   }
@@ -128,22 +143,11 @@
   function signUp() {
     let username = document.getElementById('signup-username').value.trim().toLowerCase();
     let password = document.getElementById('signup-password').value.trim();
-    
-    if (!username || !password) {
-      showToast('Please fill in all fields.');
-      return;
-    }
-
+    if (!username || !password) { showToast('Please fill in all fields.'); return; }
     let users = JSON.parse(localStorage.getItem('users')) || [];
-    
-    if (users.some(user => user.username === username)) {
-      showToast('Username already exists.');
-      return;
-    }
-
+    if (users.some(user => user.username === username)) { showToast('Username already exists.'); return; }
     users.push({ username, password });
     localStorage.setItem('users', JSON.stringify(users));
-
     showToast('Sign-up successful! Please log in.');
     showLogin();
   }
@@ -151,24 +155,13 @@
   function logIn() {
     let username = document.getElementById('login-username').value.trim().toLowerCase();
     let password = document.getElementById('login-password').value.trim();
-
     let users = JSON.parse(localStorage.getItem('users')) || [];
     let user = users.find(user => user.username === username && user.password === password);
-
-    if (user) {
-      localStorage.setItem('username', username);
-      showToast('Login successful!');
-      checkLoginStatus();
-    } else {
-      showToast('Invalid username or password.');
-    }
+    if (user) { localStorage.setItem('username', username); showToast('Login successful!'); checkLoginStatus(); }
+    else { showToast('Invalid username or password.'); }
   }
 
-  function logOut() {
-    localStorage.removeItem('username');
-    checkLoginStatus();
-    showToast('You have been logged out.');
-  }
+  function logOut() { localStorage.removeItem('username'); checkLoginStatus(); showToast('You have been logged out.'); }
 
   window.onload = checkLoginStatus;
 </script>
