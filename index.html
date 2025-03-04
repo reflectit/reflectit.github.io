@@ -1,170 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reflectly - Dark Mode</title>
+  <title>Reflect-It | Home</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="#">Reflectly</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#" onclick="showDashboard()">Home</a></li>
-        <li class="nav-item"><a class="nav-link" id="login-link" href="#" onclick="showLogin()">Log In</a></li>
-        <li class="nav-item"><a class="nav-link" id="signup-link" href="#" onclick="showSignUp()">Sign Up</a></li>
-        <li class="nav-item"><a class="nav-link text-danger" id="logout-link" href="#" onclick="logOut()" style="display: none;">Log Out</a></li>
-      </ul>
-      <button class="btn btn-secondary ms-2" id="darkModeToggle">🌙 Toggle Dark Mode</button>
-    </div>
-  </div>
-</nav>
-
-<div class="toast-container position-fixed top-0 end-0 p-3">
-  <div id="toastNotification" class="toast align-items-center text-bg-success border-0" role="alert">
-    <div class="d-flex">
-      <div class="toast-body" id="toastMessage">Welcome!</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-    </div>
-  </div>
-</div>
-
-<div id="signup-form" class="container mt-4" style="display: none;">
-  <div class="card p-4 shadow">
-    <h2 class="text-center">Sign Up</h2>
-    <div class="mb-3"><input type="text" id="signup-username" class="form-control" placeholder="Username"></div>
-    <div class="mb-3"><input type="password" id="signup-password" class="form-control" placeholder="Password"></div>
-    <button class="btn btn-primary w-100" onclick="signUp()">Sign Up</button>
-  </div>
-</div>
-
-<div id="login-form" class="container mt-4">
-  <div class="card p-4 shadow">
-    <h2 class="text-center">Log In</h2>
-    <div class="mb-3"><input type="text" id="login-username" class="form-control" placeholder="Username"></div>
-    <div class="mb-3"><input type="password" id="login-password" class="form-control" placeholder="Password"></div>
-    <button class="btn btn-primary w-100" onclick="logIn()">Log In</button>
-  </div>
-</div>
-
-<section id="dashboard" class="container mt-4" style="display: none;">
-  <h2 class="text-center">Journaling Dashboard</h2>
-  <div class="card p-4 shadow mt-3">
-    <textarea id="journal-entry" class="form-control" placeholder="Write your thoughts here..."></textarea>
-    <button class="btn btn-success w-100 mt-3" onclick="saveEntry()">Save Entry</button>
-  </div>
-</section>
-
-<section id="journal-entries" class="container-fluid d-flex flex-column align-items-center mt-4" style="display: none;">
-  <div class="card p-4 shadow" style="max-width: 800px; width: 100%;">
-    <h2 class="text-center">Your Journal Entries</h2>
-    <ul id="entries-list" class="list-group mb-3"></ul>
-    <nav>
-      <ul class="pagination justify-content-center" id="pagination"></ul>
-    </nav>
-  </div>
-</section>
-
-<footer class="bg-dark text-light py-4 mt-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-        <p>&copy; 2025 Reflectly. All Rights Reserved.</p>
-      </div>
-      <div class="col-md-6 text-center text-md-end">
-        <a href="#" class="text-light me-3">Privacy Policy</a>
-        <a href="#" class="text-light">Terms of Service</a>
+<div class="content">
+  <nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">Reflect-It</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Log In</a></li>
+          <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
+        </ul>
+        <div class="theme-switch d-lg-none">
+          <label class="switch">
+            <input id="checkbox" type="checkbox" />
+            <span class="slider">
+              <div class="star star_1"></div>
+              <div class="star star_2"></div>
+              <div class="star star_3"></div>
+              <svg viewBox="0 0 16 16" class="cloud_1 cloud">
+                <path
+                  transform="matrix(.77976 0 0 .78395-299.99-418.63)"
+                  fill="#fff"
+                  d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"
+                ></path>
+              </svg>
+            </span>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
+  </nav>
+
+  <header class="text-center py-5">
+    <div class="container">
+      <h1>Welcome to Reflect-It</h1>
+      <p>Your personal journaling space.</p>
+      <a href="signup.html" class="btn btn-primary btn-lg">Get Started</a>
+    </div>
+  </header>
+
+  <section class="container my-5 text-center">
+    <h2>Why Choose Reflect-It?</h2>
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+          <h4>Secure & Private</h4>
+          <p>Your journal is safe with us.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+          <h4>Easy to Use</h4>
+          <p>Simple, clean, and intuitive interface.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+          <h4>Access Anywhere</h4>
+          <p>Write anytime, on any device.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="text-center py-3">
+  <p>&copy; 2025 Reflect-It. All Rights Reserved.</p>
 </footer>
 
-<script>
-  function applyDarkMode() {
-    let theme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-bs-theme', theme);
-  }
-
-  function toggleDarkMode() {
-    let theme = document.documentElement.getAttribute('data-bs-theme');
-    let newTheme = theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-bs-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  }
-
-  document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
-  applyDarkMode();
-
-  function showToast(message) {
-    document.getElementById('toastMessage').innerText = message;
-    new bootstrap.Toast(document.getElementById('toastNotification')).show();
-  }
-
-  function showSignUp() {
-    document.getElementById('signup-form').style.display = 'block';
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'none';
-  }
-
-  function showLogin() {
-    document.getElementById('login-form').style.display = 'block';
-    document.getElementById('signup-form').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'none';
-  }
-
-  function checkLoginStatus() {
-    let username = localStorage.getItem('username');
-    if (username) {
-      document.getElementById('login-link').style.display = 'none';
-      document.getElementById('signup-link').style.display = 'none';
-      document.getElementById('logout-link').style.display = 'inline-block';
-      document.getElementById('dashboard').style.display = 'block';
-      document.getElementById('journal-entries').style.display = 'block';
-      document.getElementById('login-form').style.display = 'none';
-      document.getElementById('signup-form').style.display = 'none';
-      loadEntries();
-    } else {
-      document.getElementById('login-link').style.display = 'inline-block';
-      document.getElementById('signup-link').style.display = 'inline-block';
-      document.getElementById('logout-link').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'none';
-      document.getElementById('journal-entries').style.display = 'none';
-      document.getElementById('login-form').style.display = 'block';
-    }
-  }
-
-  function signUp() {
-    let username = document.getElementById('signup-username').value.trim().toLowerCase();
-    let password = document.getElementById('signup-password').value.trim();
-    if (!username || !password) { showToast('Please fill in all fields.'); return; }
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    if (users.some(user => user.username === username)) { showToast('Username already exists.'); return; }
-    users.push({ username, password });
-    localStorage.setItem('users', JSON.stringify(users));
-    showToast('Sign-up successful! Please log in.');
-    showLogin();
-  }
-
-  function logIn() {
-    let username = document.getElementById('login-username').value.trim().toLowerCase();
-    let password = document.getElementById('login-password').value.trim();
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    let user = users.find(user => user.username === username && user.password === password);
-    if (user) { localStorage.setItem('username', username); showToast('Login successful!'); checkLoginStatus(); }
-    else { showToast('Invalid username or password.'); }
-  }
-
-  function logOut() { localStorage.removeItem('username'); checkLoginStatus(); showToast('You have been logged out.'); }
-
-  window.onload = checkLoginStatus;
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
