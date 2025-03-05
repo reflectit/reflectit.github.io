@@ -89,16 +89,17 @@
   .switch input:checked ~ .slider .cloud {
     opacity: 1;
   }
-  
-.theme-switch {
-  display: flex !important; /* Ensure it appears on all devices */
-  align-items: center;
-  margin-left: 1rem;
-}
 
+  .theme-switch {
+    display: flex !important;  /* Ensure it appears on PC & Mobile */
+    align-items: center;
+    margin-left: 1rem;
+  }
   
-  .navbar-collapse.show .theme-switch {
-    display: block;
+  @media (max-width: 991px) { /* Adjust for mobile */
+    .theme-switch {
+      margin-top: 10px;
+    }
   }
   
   html, body {
