@@ -19,91 +19,26 @@
       padding: 2rem;
       border-radius: 0.75rem;
       background-color: var(--form-bg);
-      color: var(--form-text);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
-    .title {
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-    .input-group {
-      position: relative;
-      margin-top: 1rem;
-    }
-    .input-group label {
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      transition: 0.2s ease all;
-      color: var(--label-color);
-      pointer-events: none;
-      font-size: 1rem;
-    }
-    .input-group input {
-      width: 100%;
-      border-radius: 0.375rem;
-      border: 1px solid var(--border-color);
-      padding: 0.75rem 1rem;
-      color: var(--text-color);
-      background-color: var(--input-bg);
-      font-size: 1rem;
-    }
-    .input-group input:focus {
-      border-color: rgba(167, 139, 250, 1);
-      outline: none;
-    }
-    .input-group input:focus + label,
-    .input-group input:not(:placeholder-shown) + label {
-      top: -18px;
-      font-size: 0.75rem;
-      color: rgba(167, 139, 250, 1);
-    }
-    .sign {
-      display: block;
-      width: 100%;
-      background-color: rgba(167, 139, 250, 1);
-      padding: 0.75rem;
-      text-align: center;
-      color: rgba(17, 24, 39, 1);
-      border: none;
-      border-radius: 0.375rem;
-      font-weight: 600;
-      margin-top: 1rem;
-    }
-    .forgot, .signup {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--label-color);
-      margin-top: 1rem;
-    }
-    .show-password {
-      position: absolute;
-      right: 10px;
-      top: 30%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: rgba(167, 139, 250, 1);
-      cursor: pointer;
-    }
-    /* Dark Mode Variables */
     :root {
-      --bg-color: rgba(255, 255, 255, 1);
-      --text-color: rgba(0, 0, 0, 1);
-      --form-bg: rgba(240, 240, 240, 1);
-      --form-text: rgba(0, 0, 0, 1);
-      --label-color: rgba(100, 100, 100, 1);
-      --input-bg: rgba(255, 255, 255, 1);
-      --border-color: rgba(200, 200, 200, 1);
+      --bg-color: white;
+      --text-color: black;
+      --form-bg: #f8f9fa;
     }
     [data-bs-theme="dark"] {
-      --bg-color: rgba(17, 24, 39, 1);
-      --text-color: rgba(243, 244, 246, 1);
-      --form-bg: rgba(30, 30, 30, 1);
-      --form-text: rgba(243, 244, 246, 1);
-      --label-color: rgba(156, 163, 175, 1);
-      --input-bg: rgba(20, 20, 20, 1);
-      --border-color: rgba(55, 65, 81, 1);
+      --bg-color: #121212;
+      --text-color: white;
+      --form-bg: #1e1e1e;
+    }
+    .navbar {
+      background-color: var(--form-bg) !important;
+    }
+    .navbar-brand, .nav-link {
+      color: var(--text-color) !important;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -118,39 +53,37 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="./index">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="journal.html">Journal</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
       </ul>
     </div>
 
     <!-- Theme Switch -->
-    <div class="theme-switch">
-      <label class="switch">
-        <input id="themeToggle" type="checkbox">
-        <span class="slider"></span>
-      </label>
+    <div class="ms-3">
+      <button id="themeToggle" class="btn btn-outline-secondary">🌙</button>
     </div>
   </div>
 </nav>
 <!-- Navbar End -->
 
-<div class="container mt-5">
+<div class="container d-flex align-items-center justify-content-center vh-100">
   <div class="form-container">
-    <p class="title">Login</p>
+    <h2 class="text-center">Login</h2>
     <form id="loginForm">
-      <div class="input-group">
-        <input type="text" id="username" placeholder=" " required>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="username" placeholder="Username" required>
         <label for="username">Username</label>
       </div>
-      <div class="input-group">
-        <input type="password" id="password" placeholder=" " required>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" placeholder="Password" required>
         <label for="password">Password</label>
-        <button type="button" class="show-password" id="togglePassword">Show</button>
       </div>
-      <button type="submit" class="sign">Sign In</button>
+      <button type="submit" class="btn btn-primary w-100">Sign In</button>
     </form>
-    <p class="forgot"><a href="#">Forgot Password?</a></p>
-    <p class="signup">Don't have an account? <a href="signup.html">Sign up</a></p>
+    <p class="text-center mt-3"><a href="#">Forgot Password?</a></p>
+    <p class="text-center">Don't have an account? <a href="signup.html">Sign up</a></p>
   </div>
 </div>
 
@@ -164,21 +97,13 @@
   const themeToggle = document.getElementById('themeToggle');
   if (localStorage.getItem("theme") === "dark") {
     document.documentElement.setAttribute("data-bs-theme", "dark");
-    themeToggle.checked = true;
+    themeToggle.textContent = "☀️";
   }
-  themeToggle.addEventListener("change", () => {
-    const theme = themeToggle.checked ? "dark" : "light";
+  themeToggle.addEventListener("click", () => {
+    const theme = document.documentElement.getAttribute("data-bs-theme") === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-bs-theme", theme);
     localStorage.setItem("theme", theme);
-  });
-
-  // Password Toggle
-  const togglePassword = document.getElementById('togglePassword');
-  const passwordInput = document.getElementById('password');
-  togglePassword.addEventListener('click', function () {
-    const type = passwordInput.type === 'password' ? 'text' : 'password';
-    passwordInput.type = type;
-    this.textContent = type === 'password' ? 'Show' : 'Hide';
+    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
   });
 </script>
 
