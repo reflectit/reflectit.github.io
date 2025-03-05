@@ -7,105 +7,70 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
-    }
-    .form-container {
-      max-width: 400px;
-      margin: auto;
-      padding: 2rem;
-      border-radius: 0.75rem;
-      background-color: var(--form-bg);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    :root {
-      --bg-color: white;
-      --text-color: black;
-      --form-bg: #f8f9fa;
-    }
-    [data-bs-theme="dark"] {
-      --bg-color: #121212;
-      --text-color: white;
-      --form-bg: #1e1e1e;
-    }
-    .navbar {
-      background-color: var(--form-bg) !important;
-    }
-    .navbar-brand, .nav-link {
-      color: var(--text-color) !important;
-    }
-    .nav-link:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
 <body>
 
-<!-- Navbar Start (Same as index.html) -->
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.html">Reflect-It</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="./index">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="journal.html">Journal</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-      </ul>
-    </div>
-
-    <!-- Theme Switch -->
-    <div class="ms-3">
-      <button id="themeToggle" class="btn btn-outline-secondary">🌙</button>
-    </div>
-  </div>
-</nav>
-<!-- Navbar End -->
-
-<div class="container d-flex align-items-center justify-content-center vh-100">
-  <div class="form-container">
-    <h2 class="text-center">Login</h2>
-    <form id="loginForm">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="username" placeholder="Username" required>
-        <label for="username">Username</label>
+<!-- Navbar (Copied exactly from index.html) -->
+<div class="content">
+  <nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">Reflect-It</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="./index">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./login">Log In</a></li>
+          <li class="nav-item"><a class="nav-link" href="./signup">Sign Up</a></li>
+        </ul>
+        <div class="theme-switch">
+            <label class="switch">
+              <input id="checkbox" type="checkbox" />
+              <span class="slider">
+                <div class="star star_1"></div>
+                <div class="star star_2"></div>
+                <div class="star star_3"></div>
+                <svg viewBox="0 0 16 16" class="cloud_1 cloud">
+                  <path transform="matrix(.77976 0 0 .78395-299.99-418.63)"
+                    fill="#fff"
+                    d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"
+                  ></path>
+                </svg>
+              </span>
+            </label>
+          </div>
       </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="password" placeholder="Password" required>
-        <label for="password">Password</label>
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Sign In</button>
-    </form>
-    <p class="text-center mt-3"><a href="#">Forgot Password?</a></p>
-    <p class="text-center">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <div class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="form-container p-4 shadow-sm rounded">
+      <h2 class="text-center">Log In</h2>
+      <form id="loginForm">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="username" placeholder="Username" required>
+          <label for="username">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password" placeholder="Password" required>
+          <label for="password">Password</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+      </form>
+      <p class="text-center mt-3"><a href="#">Forgot Password?</a></p>
+      <p class="text-center">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
   </div>
 </div>
 
 <!-- Footer -->
 <footer class="text-center py-3">
-  <p>&copy; 2023 Reflect-It. All rights reserved.</p>
+  <p>&copy; 2025 Reflect-It. All Rights Reserved.</p>
 </footer>
 
-<script>
-  // Theme Toggle
-  const themeToggle = document.getElementById('themeToggle');
-  if (localStorage.getItem("theme") === "dark") {
-    document.documentElement.setAttribute("data-bs-theme", "dark");
-    themeToggle.textContent = "☀️";
-  }
-  themeToggle.addEventListener("click", () => {
-    const theme = document.documentElement.getAttribute("data-bs-theme") === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-bs-theme", theme);
-    localStorage.setItem("theme", theme);
-    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
-  });
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
