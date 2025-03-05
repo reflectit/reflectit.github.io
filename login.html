@@ -7,130 +7,40 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .form-container {
-      max-width: 400px;
-      margin: auto;
-      padding: 2rem;
-      border-radius: 0.75rem;
-      background-color: rgba(17, 24, 39, 1);
-      color: rgba(243, 244, 246, 1);
-    }
-    .title {
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-    .input-group {
-      position: relative;
-      margin-top: 1rem;
-    }
-    .input-group label {
-      position: absolute;
-      left: 12px;
-      top: 12px; /* Change this value to adjust the initial position of the label */
-      transition: 0.2s ease all;
-      color: rgba(156, 163, 175, 1);
-      pointer-events: none;
-      font-size: 1rem; /* Default font size */
-    }
-    .input-group input {
-      width: 100%;
-      border-radius: 0.375rem;
-      border: 1px solid rgba(55, 65, 81, 1);
-      padding: 0.75rem 1rem;
-      color: rgba(243, 244, 246, 1);
-      background-color: rgba(17, 24, 39, 1);
-      font-size: 1rem; /* Ensure the font size is consistent */
-    }
-    .input-group input:focus {
-      border-color: rgba(167, 139, 250);
-      outline: none;
-    }
-    .input-group input:focus + label,
-    .input-group input:not(:placeholder-shown) + label {
-      top: -18px; /* Change this value to adjust how high the label floats above the input */
-      left: 12px;
-      font-size: 0.75rem;
-      color: rgba(167, 139, 250);
-    }
-    .sign {
-      display: block;
-      width: 100%;
-      background-color: rgba(167, 139, 250, 1);
-      padding: 0.75rem;
-      text-align: center;
-      color: rgba(17, 24, 39, 1);
-      border: none;
-      border-radius: 0.375rem;
-      font-weight: 600;
-      margin-top: 1rem;
-    }
-    .forgot {
-      display: flex;
-      justify-content: flex-end;
-      font-size: 0.75rem;
-      color: rgba(156, 163, 175, 1);
-      margin: 8px 0;
-    }
-    .signup {
-      text-align: center;
-      font-size: 0.75rem;
-      color: rgba(156, 163, 175, 1);
-      margin-top: 1rem;
-    }
-    .show-password {
-      position: absolute;
-      right: 10px;
-      top: 30%; /* Adjust this value to position the icon */
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: rgba(167, 139, 250);
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
 
 <div class="content">
-  <!-- Navbar Start -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container">
       <a class="navbar-brand" href="#">Reflect-It</a>
-  
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Journal</a></li>
+          <li class="nav-item"><a class="nav-link" href="./index">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./login">Log In</a></li>
+          <li class="nav-item"><a class="nav-link" href="./signup">Sign Up</a></li>
         </ul>
+        <div class="theme-switch">
+            <label class="switch">
+              <input id="checkbox" type="checkbox" />
+              <span class="slider">
+                <div class="star star_1"></div>
+                <div class="star star_2"></div>
+                <div class="star star_3"></div>
+                <svg viewBox="0 0 16 16" class="cloud_1 cloud">
+                  <path transform="matrix(.77976 0 0 .78395-299.99-418.63)"
+                    fill="#fff"
+                    d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"></path>
+                </svg>
+              </span>
+            </label>
+        </div>
       </div>
-  
-      <!-- Dark Mode Toggle (Move outside .navbar-collapse) -->
-      <div class="theme-switch">
-        <label class="switch">
-          <input id="checkbox" type="checkbox" />
-          <span class="slider">
-            <div class="star star_1"></div>
-            <div class="star star_2"></div>
-            <div class="star star_3"></div>
-            <svg viewBox="0 0 16 16" class="cloud_1 cloud">
-              <path transform="matrix(.77976 0 0 .78395-299.99-418.63)"
-                fill="#fff"
-                d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"
-              ></path>
-            </svg>
-          </span>
-        </label>
-      </div>
-      <!-- End Toggle -->
     </div>
   </nav>
-  
 
   <div class="form-container">
     <p class="title">Login</p>
@@ -152,12 +62,11 @@
       <button type="submit" class="sign">Sign In</button>
     </form>
     <p class="signup">Don't have an account?
-      <a rel="noopener noreferrer" href="signup.html" class="">Sign up</a>
+      <a rel="noopener noreferrer" href="signup.html">Sign up</a>
     </p>
   </div>
 </div>
 
-<!-- Footer Start -->
 <footer class="text-center py-3">
   <p>&copy; 2023 Reflect-It. All rights reserved.</p>
 </footer>
@@ -173,8 +82,12 @@
   });
 
   const checkbox = document.getElementById('checkbox');
+  checkbox.checked = localStorage.getItem('theme') === 'dark';
+  document.body.setAttribute('data-bs-theme', checkbox.checked ? 'dark' : 'light');
+
   checkbox.addEventListener('change', () => {
     document.body.setAttribute('data-bs-theme', checkbox.checked ? 'dark' : 'light');
+    localStorage.setItem('theme', checkbox.checked ? 'dark' : 'light');
   });
 </script>
 
