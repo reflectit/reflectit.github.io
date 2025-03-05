@@ -11,36 +11,28 @@
 <body>
 
 <div class="content">
-  <nav class="navbar navbar-expand-lg shadow-sm">
-    <div class="container">
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
       <a class="navbar-brand" href="#">Reflect-It</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="./index">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="./login">Log In</a></li>
-          <li class="nav-item"><a class="nav-link" href="./signup">Sign Up</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Journal</a></li>
         </ul>
-        <div class="theme-switch">
-            <label class="switch">
-              <input id="checkbox" type="checkbox" />
-              <span class="slider">
-                <div class="star star_1"></div>
-                <div class="star star_2"></div>
-                <div class="star star_3"></div>
-                <svg viewBox="0 0 16 16" class="cloud_1 cloud">
-                  <path transform="matrix(.77976 0 0 .78395-299.99-418.63)"
-                    fill="#fff"
-                    d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"></path>
-                </svg>
-              </span>
-            </label>
-        </div>
+      </div>
+      <div class="theme-switch">
+        <label class="switch">
+          <input id="checkbox" type="checkbox" />
+          <span class="slider"></span>
+        </label>
       </div>
     </div>
   </nav>
+  <!-- Navbar End -->
 
   <div class="form-container">
     <p class="title">Login</p>
@@ -56,38 +48,30 @@
         <button type="button" class="show-password" id="togglePassword">Show</button>
         <div class="invalid-feedback">Password is required and must be 6-30 characters long.</div>
         <div class="forgot">
-          <a rel="noopener noreferrer" href="#">Forgot Password?</a>
+          <a href="#">Forgot Password?</a>
         </div>
       </div>
       <button type="submit" class="sign">Sign In</button>
     </form>
-    <p class="signup">Don't have an account?
-      <a rel="noopener noreferrer" href="signup.html">Sign up</a>
-    </p>
+    <p class="signup">Don't have an account? <a href="signup.html">Sign up</a></p>
   </div>
 </div>
 
+<!-- Footer Start -->
 <footer class="text-center py-3">
   <p>&copy; 2023 Reflect-It. All rights reserved.</p>
 </footer>
 
 <script>
-  const togglePassword = document.getElementById('togglePassword');
-  const passwordInput = document.getElementById('password');
-
-  togglePassword.addEventListener('click', function () {
+  document.getElementById('togglePassword').addEventListener('click', function () {
+    const passwordInput = document.getElementById('password');
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
     this.textContent = type === 'password' ? 'Show' : 'Hide';
   });
 
-  const checkbox = document.getElementById('checkbox');
-  checkbox.checked = localStorage.getItem('theme') === 'dark';
-  document.body.setAttribute('data-bs-theme', checkbox.checked ? 'dark' : 'light');
-
-  checkbox.addEventListener('change', () => {
-    document.body.setAttribute('data-bs-theme', checkbox.checked ? 'dark' : 'light');
-    localStorage.setItem('theme', checkbox.checked ? 'dark' : 'light');
+  document.getElementById('checkbox').addEventListener('change', () => {
+    document.body.setAttribute('data-bs-theme', document.getElementById('checkbox').checked ? 'dark' : 'light');
   });
 </script>
 
