@@ -1,60 +1,38 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-// Firebase Configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAPcTIfGYQMjBa02BDbQ8fsOCZK5ASeCTA",
+  authDomain: "reflect-it-57f45.firebaseapp.com",
+  projectId: "reflect-it-57f45",
+  storageBucket: "reflect-it-57f45.appspot.com",
+  messagingSenderId: "26333738927",
+  appId: "1:26333738927:web:0061534f4252a0b528a15a"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Get email from input field
-document.getElementById("signupForm").addEventListener("submit", function (e) {
+document.getElementById("signupForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
 
-  // Email link action settings
-  const actionCodeSettings = {
-    url: "https://reflect-it.xyz/login", // Redirect after clicking email link
-    handleCodeInApp: true,
-  };
-
-  // Send sign-in email link
-  sendSignInLinkToEmail(auth, email, actionCodeSettings)
-    .then(() => {
-      alert("Sign-in link sent to your email.");
-      localStorage.setItem("emailForSignIn", email); // Store email for later use
-    })
-    .catch((error) => {
-      alert("Error: " + error.message);
-    });
-});
-
-// Handle Email Link Sign-In
-if (isSignInWithEmailLink(auth, window.location.href)) {
-  let email = localStorage.getItem("emailForSignIn");
-  if (!email) {
-    email = prompt("Enter your email to confirm sign-in:");
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
   }
 
-  signInWithEmailLink(auth, email, window.location.href)
-    .then((result) => {
-      alert("Signed in successfully!");
-      localStorage.removeItem("emailForSignIn"); // Clear stored email
-      window.location.href = "home.html"; // Redirect after login
-    })
-    .catch((error) => {
-      alert("Error: " + error.message);
-    });
-}
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    alert("Sign up successful! You can now log in.");
+    window.location.href = "login.html";
+  } catch (error) {
+    alert(error.message);
+  }
+});
 
 function applyDarkMode() {
   document.documentElement.setAttribute('data-bs-theme', 'dark');
