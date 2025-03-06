@@ -1,40 +1,60 @@
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-const db = getFirestore();
-const auth = getAuth();
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-document.getElementById("signupForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById("email").value;
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-    }
+// Get email from input field
+document.getElementById("signupForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
 
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        
-        // Store user data in Firestore
-        await setDoc(doc(db, "users", user.uid), {
-            username: username,
-            email: email,
-            createdAt: new Date()
-        });
+  // Email link action settings
+  const actionCodeSettings = {
+    url: "https://reflect-it.xyz/login", // Redirect after clicking email link
+    handleCodeInApp: true,
+  };
 
-        alert("Account created successfully!");
-        window.location.href = "./home";
-    } catch (error) {
-        alert("Error: " + error.message);
-    }
+  // Send sign-in email link
+  sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    .then(() => {
+      alert("Sign-in link sent to your email.");
+      localStorage.setItem("emailForSignIn", email); // Store email for later use
+    })
+    .catch((error) => {
+      alert("Error: " + error.message);
+    });
 });
 
+// Handle Email Link Sign-In
+if (isSignInWithEmailLink(auth, window.location.href)) {
+  let email = localStorage.getItem("emailForSignIn");
+  if (!email) {
+    email = prompt("Enter your email to confirm sign-in:");
+  }
+
+  signInWithEmailLink(auth, email, window.location.href)
+    .then((result) => {
+      alert("Signed in successfully!");
+      localStorage.removeItem("emailForSignIn"); // Clear stored email
+      window.location.href = "home.html"; // Redirect after login
+    })
+    .catch((error) => {
+      alert("Error: " + error.message);
+    });
+}
 
 function applyDarkMode() {
   document.documentElement.setAttribute('data-bs-theme', 'dark');
