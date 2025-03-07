@@ -203,3 +203,8 @@ border: none;
 color: rgba(167, 139, 250);
 cursor: pointer;
 }
+
+html[data-bs-theme="light"] .form-container {
+    background-color: rgba(243, 244, 246, 1) !important;
+    color: rgba(17, 24, 39, 1) !important;
+}
