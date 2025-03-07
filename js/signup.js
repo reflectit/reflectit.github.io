@@ -1,16 +1,17 @@
-// Import Firebase modules
+// Import Firebase services
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase configuration (replace with your actual config)
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyAPcTIfGYQMjBa02BDbQ8fsOCZK5ASeCTA",
   authDomain: "reflect-it-57f45.firebaseapp.com",
   projectId: "reflect-it-57f45",
-  storageBucket: "reflect-it-57f45.appspot.com",
+  storageBucket: "reflect-it-57f45.appspot.com", // FIXED storageBucket
   messagingSenderId: "26333738927",
-  appId: "1:26333738927:web:0061534f4252a0b528a15a"
+  appId: "1:26333738927:web:0061534f4252a0b528a15a",
+  measurementId: "G-QVWE3CJSV6"
 };
 
 // Initialize Firebase
@@ -18,37 +19,34 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Form submission event
+// Handle Sign-Up
 document.getElementById("signupForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Get form values
   const email = document.getElementById("email").value;
-  const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-
-  // Check if passwords match
-  if (password !== confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
+  const username = document.getElementById("username").value;
 
   try {
-    // Create user with email & password
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Store user details in Firestore
+    // Save user info in Firestore
     await setDoc(doc(db, "users", user.uid), {
-      username: username,
       email: email,
+      username: username,
       createdAt: new Date()
     });
 
-    alert("Account created successfully!");
-    window.location.href = "login.html"; // Redirect to login page
+    alert("Sign-up successful!");
+    window.location.href = "home.html"; // Redirect
   } catch (error) {
-    alert(error.message); // Show error if sign-up fails
+    if (error.code === "auth/email-already-in-use") {
+      alert("Email is already in use.");
+    } else if (error.code === "auth/weak-password") {
+      alert("Password should be at least 6 characters.");
+    } else {
+      alert(error.message);
+    }
   }
 });
