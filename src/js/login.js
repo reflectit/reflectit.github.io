@@ -1,4 +1,4 @@
-import { app } from "../../src/js/firebase-config.js"; // Ensure correct relative path
+import { app } from "./firebase-config.js"; // Correct relative path assuming the login.js is in the same folder
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const auth = getAuth(app);
@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = loginForm.email.value, password = loginForm.password.value;
+    const email = loginForm.email.value;
+    const password = loginForm.password.value;
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
