@@ -1,4 +1,4 @@
-import { app } from "./js/firebase-config.js";
+import { app } from "src/js/firebase-config.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const auth = getAuth(app);
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
-      location.href = "home.html";
+      location.href = "secured/dashboards.html";
     } catch (error) {
       console.error("Login failed:", error.code, error.message);
     }
