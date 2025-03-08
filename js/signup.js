@@ -1,6 +1,7 @@
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -15,30 +16,46 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Ensure the form exists before adding an event listener
 document.addEventListener("DOMContentLoaded", () => {
-  const loginForm = document.getElementById("loginForm");
-  if (!loginForm) {
-    console.error("Login form not found!");
+  const signupForm = document.getElementById("signupForm");
+  if (!signupForm) {
+    console.error("Signup form not found!");
     return;
   }
 
-  loginForm.addEventListener("submit", async (e) => {
+  signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     // Get form values
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Validate password match
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
 
     try {
-      // Authenticate user
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful!");
-      window.location.href = "test.html";
+      // Create user with Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Store user details in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email: email,
+        createdAt: new Date().toISOString(),
+      });
+
+      alert("Account created successfully!");
+      window.location.href = "login.html";
     } catch (error) {
-        console.error("Error Code:", error.code);
-        console.error("Error Message:", error.message);
+      alert(`Error: ${error.message}`);
+      console.error("Signup Error:", error);
     }
   });
 });
