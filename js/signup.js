@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       alert("Account created successfully!");
-      window.location.href = "test.html"; // Redirect to login
+      window.location.href = "login.html";
     } catch (error) {
       alert(`Error: ${error.message}`);
       console.error("Signup Error:", error);
