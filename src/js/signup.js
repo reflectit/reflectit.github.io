@@ -9,11 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
   if (!signupForm) return;
 
+  // Accessing the form inputs directly by ID
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const confirmPasswordInput = document.getElementById("confirmPassword");
+
+  if (!emailInput || !passwordInput || !confirmPasswordInput) {
+    console.error("Form inputs not found!");
+    return;
+  }
+
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = signupForm.querySelector('input[name="email"]').value;
-    const password = signupForm.querySelector('input[name="password"]').value;
-    const confirmPassword = signupForm.querySelector('input[name="confirmPassword"]').value;
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
 
     if (password !== confirmPassword) return alert("Passwords do not match!");
 
