@@ -35,10 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Authenticate user
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
-      window.location.href = "home.html"; // Redirect to home
+      window.location.href = "test.html";
     } catch (error) {
-      alert(`Error: ${error.message}`);
-      console.error("Login Error:", error);
+        console.error("Error Code:", error.code);
+        console.error("Error Message:", error.message);
     }
   });
 });
