@@ -1,8 +1,7 @@
-// Import Firebase modules using CDN links
+// firebase-config.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAPcTIfGYQMjBa02BDbQ8fsOCZK5ASeCTA",
   authDomain: "reflect-it-57f45.firebaseapp.com",
@@ -13,6 +12,7 @@ const firebaseConfig = {
   measurementId: "G-QVWE3CJSV6"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+
+export { app };
