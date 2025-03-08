@@ -20,12 +20,6 @@ const db = getFirestore(app);
 
 // Ensure the form exists before adding an event listener
 document.addEventListener("DOMContentLoaded", () => {
-  const signupForm = document.getElementById("signupForm");
-  if (!signupForm) {
-    console.error("Signup form not found!");
-    return;
-  }
-
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
