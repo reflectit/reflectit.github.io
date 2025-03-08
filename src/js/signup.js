@@ -7,7 +7,9 @@ const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
-  if (!signupForm) return;
+  const alertContainer = document.getElementById("alertContainer");
+
+  if (!signupForm || !alertContainer) return;
 
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
@@ -25,7 +27,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
 
-    if (password !== confirmPassword) return alert("Passwords do not match!");
+    // Clear previous alerts
+    alertContainer.innerHTML = "";
+
+    if (password !== confirmPassword) {
+      displayAlert("danger", "Passwords do not match!");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      displayAlert("danger", "Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 6) {
+      displayAlert("danger", "Password must be at least 6 characters long.");
+      return;
+    }
 
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
@@ -34,7 +52,27 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Account created successfully!");
       location.href = "../auth/logins.html";
     } catch (error) {
-      alert(`Error: ${error.message}`);
+      displayAlert("danger", `Error: ${error.message}`);
     }
   });
+
+  // Helper function to display alerts
+  function displayAlert(type, message) {
+    const alert = document.createElement("div");
+    alert.classList.add("alert", `alert-${type}`);
+    alert.setAttribute("role", "alert");
+    alert.innerHTML = `<strong>${capitalizeFirstLetter(type)}!</strong> ${message}`;
+    alertContainer.appendChild(alert);
+  }
+
+  // Validate email format using regular expression
+  function validateEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+  // Capitalize the first letter of the alert type
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 });
