@@ -1,4 +1,4 @@
-import { app } from "./js/firebase-config.js";
+import { app } from "src/js/firebase-config.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       await setDoc(doc(db, "users", user.uid), { email: user.email, createdAt: new Date().toISOString() });
 
       alert("Account created successfully!");
-      location.href = "login.html";
+      location.href = "auth/logins.html";
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
