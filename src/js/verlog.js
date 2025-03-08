@@ -8,6 +8,6 @@ onAuthStateChanged(auth, (user) => {
     alert("You must be logged in to access this page.");
     location.href = "auth/logins.html";
   } else {
-    location.href = "secured/dashboards.html";
+    location.href = "../secured/dashboards.html";
   }
 });
