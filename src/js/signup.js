@@ -1,4 +1,4 @@
-import { app } from "./firebase-config.js"; // Corrected import path
+import { app } from "./firebase-config.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
   if (!signupForm) return;
 
-  // Accessing the form inputs directly by ID
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const confirmPasswordInput = document.getElementById("confirmPassword");
@@ -21,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const email = emailInput.value;
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
