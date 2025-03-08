@@ -11,12 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword } = signupForm;
+    const email = signupForm.querySelector('input[name="email"]').value;
+    const password = signupForm.querySelector('input[name="password"]').value;
+    const confirmPassword = signupForm.querySelector('input[name="confirmPassword"]').value;
 
-    if (password.value !== confirmPassword.value) return alert("Passwords do not match!");
+    if (password !== confirmPassword) return alert("Passwords do not match!");
 
     try {
-      const { user } = await createUserWithEmailAndPassword(auth, email.value, password.value);
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", user.uid), { email: user.email, createdAt: new Date().toISOString() });
 
       alert("Account created successfully!");
