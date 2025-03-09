@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
-      location.href = "../auth/verlog";
+      location.href = "../secured/dashboard";
     } catch (error) {
       console.error("Login failed:", error.code, error.message);
     }
