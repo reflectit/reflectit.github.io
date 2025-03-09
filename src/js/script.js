@@ -4,67 +4,33 @@ function applyDarkMode() {
    document.querySelector('nav').classList.remove('navbar-light', 'bg-light');
    document.body.classList.add('bg-dark', 'text-light');
 
-   let sun = document.querySelector('.sun');
-   let moon = document.querySelector('.moon');
-   let checkbox = document.getElementById('checkbox');
+   let lightIcon = document.querySelector('.light-icon');
+   let darkIcon = document.querySelector('.dark-icon');
 
-   if (sun && moon) {
-      sun.style.display = 'none';  
-      moon.style.display = 'block';
-   }
-
-   if (checkbox) {
-      checkbox.checked = true;
-   }
-}
-
-function toggleDarkMode() {
-   let theme = document.documentElement.getAttribute('data-bs-theme');
-   let newTheme = theme === 'dark' ? 'light' : 'dark';
-   document.documentElement.setAttribute('data-bs-theme', newTheme);
-   
-   let nav = document.querySelector('nav');
-   let body = document.body;
-   let sun = document.querySelector('.sun');
-   let moon = document.querySelector('.moon');
-   let checkbox = document.getElementById('checkbox');
-
-   if (newTheme === 'dark') {
-      if (nav) {
-         nav.classList.add('navbar-dark', 'bg-dark');
-         nav.classList.remove('navbar-light', 'bg-light');
-      }
-      body.classList.add('bg-dark', 'text-light');
-      if (sun && moon) {
-         sun.style.display = 'none';  
-         moon.style.display = 'block'; 
-      }
-   } else {
-      applyLightMode();
+   if (lightIcon && darkIcon) {
+      lightIcon.style.display = 'none';
+      darkIcon.style.display = 'block';
    }
 }
 
 function applyLightMode() {
    document.documentElement.setAttribute('data-bs-theme', 'light');
+   document.querySelector('nav').classList.add('navbar-light', 'bg-light');
+   document.querySelector('nav').classList.remove('navbar-dark', 'bg-dark');
+   document.body.classList.remove('bg-dark', 'text-light');
 
-   let nav = document.querySelector('nav');
-   let body = document.body;
-   let sun = document.querySelector('.sun');
-   let moon = document.querySelector('.moon');
-   let checkbox = document.getElementById('checkbox');
+   let lightIcon = document.querySelector('.light-icon');
+   let darkIcon = document.querySelector('.dark-icon');
 
-   if (nav) {
-      nav.classList.add('navbar-light', 'bg-light');
-      nav.classList.remove('navbar-dark', 'bg-dark');
+   if (lightIcon && darkIcon) {
+      lightIcon.style.display = 'block';
+      darkIcon.style.display = 'none';
    }
-   body.classList.remove('bg-dark', 'text-light');
-   if (sun && moon) {
-      sun.style.display = 'block';  
-      moon.style.display = 'none';
-   }
-   if (checkbox) {
-      checkbox.checked = false;  
-   }
+}
+
+function toggleDarkMode() {
+   let theme = document.documentElement.getAttribute('data-bs-theme');
+   theme === 'dark' ? applyLightMode() : applyDarkMode();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
