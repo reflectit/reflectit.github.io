@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   onAuthStateChanged(auth, (user) => {
     if (!user) {
       alert("You must log in first!");
-      location.href = "../../index.html"; // Ensure correct path
+      location.href = "../../auth/logins.html"; // Ensure correct path
     }
   });
 
