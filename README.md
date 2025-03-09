@@ -50,3 +50,20 @@ This system is designed to manage user accounts and their associated journal ent
     - Open `index.html` in a browser to run the project locally.
 
 ## Folder Structure
+
+/project-folder /assets /images /styles style.css /scripts script.js /pages index.html login.html signup.html home.html dashboard.html /data .gitignore README.md index.html
+
+- **/assets**: Contains images, styles, and scripts used across the system.
+- **/pages**: Contains the HTML pages for login, sign-up, home, and dashboard.
+- **/data**: Reserved for static data (if used) or Firebase data management.
+- **.gitignore**: Specifies files to be ignored by Git, such as `node_modules` or environment variables.
+- **README.md**: This documentation file.
+  
+## License
+
+This project is for **educational purposes only** and should not be used commercially. It was developed as part of a school project to demonstrate web system concepts.
+
+## Contact
+
+- **Website**: [Reflect-It](https://reflect-it.xyz)
+- **Email**: [reflect0it@gmail.com](mailto:reflect0it@gmail.com)
