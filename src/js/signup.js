@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmPasswordInput = document.getElementById("confirmPassword");
 
   if (!emailInput || !passwordInput || !confirmPasswordInput) {
-    console.error("Form inputs not found!");
+    console.error("Form inputs not found");
     return;
   }
 
@@ -56,14 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Helper function to display alerts
-  function displayAlert(type, message) {
+ function displayAlert(type, message) {
     const alert = document.createElement("div");
     alert.classList.add("alert", `alert-${type}`);
     alert.setAttribute("role", "alert");
-    alert.innerHTML = `<strong>${capitalizeFirstLetter(type)}!</strong> ${message}`;
+    alert.innerHTML = message; // Only show the message
     alertContainer.appendChild(alert);
-  }
+}
+
 
   // Validate email format using regular expression
   function validateEmail(email) {
