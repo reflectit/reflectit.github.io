@@ -21,6 +21,7 @@ function applyDarkMode() {
    } else {
      applyLightMode();
    }
+ }
  
  function applyLightMode() {
    document.documentElement.setAttribute('data-bs-theme', 'light');
