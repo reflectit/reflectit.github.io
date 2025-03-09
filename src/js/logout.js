@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", async () => {
       try {
         await signOut(auth);
-        alert("Logout successful!");
         location.href = "../../index.html"; // Redirect to homepage after logout
       } catch (error) {
         console.error("Logout failed:", error.code, error.message);
