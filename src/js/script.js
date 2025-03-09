@@ -20,3 +20,18 @@ function applyDarkMode() {
      document.querySelector('.moon').style.display = 'block'; 
    } else {
      applyLightMode();
+   }
+ 
+ function applyLightMode() {
+   document.documentElement.setAttribute('data-bs-theme', 'light');
+   document.querySelector('nav').classList.add('navbar-light');
+   document.querySelector('nav').classList.remove('navbar-dark', 'bg-dark');
+   document.querySelector('nav').classList.add('bg-light');
+   document.body.classList.remove('bg-dark', 'text-light');
+   document.querySelector('.sun').style.display = 'block';  
+   document.querySelector('.moon').style.display = 'none';
+   document.getElementById('checkbox').checked = false;  
+ }
+ 
+ document.addEventListener('DOMContentLoaded', applyDarkMode);
+ document.getElementById('checkbox').addEventListener('change', toggleDarkMode);
