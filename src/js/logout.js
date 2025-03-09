@@ -3,12 +3,22 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 
 const auth = getAuth(app);
 
-// Redirect if not logged in
+// Redirect if not logged in or handle login redirect on page load
 document.addEventListener("DOMContentLoaded", () => {
+  const currentPath = window.location.pathname;
+
   onAuthStateChanged(auth, (user) => {
     if (!user) {
-      alert("You must log in first!");
-      location.href = "../../auth/logins.html"; // Ensure correct path
+      // If not logged in and on a page that requires login, redirect to login page
+      if (currentPath !== "/auth/logins.html" && currentPath !== "/auth/signup.html") {
+        alert("You must log in first!");
+        location.href = "../../auth/logins.html"; // Ensure correct path
+      }
+    } else {
+      // If logged in, prevent access to login page and redirect to dashboard
+      if (currentPath === "/auth/logins.html" || currentPath === "/auth/signup.html") {
+        location.href = "../../secured/dashboard"; // Redirect to dashboard if logged in
+      }
     }
   });
 
@@ -19,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         await signOut(auth);
         alert("Logout successful!");
-        location.href = "../../index.html";
+        location.href = "../../index.html"; // Redirect to homepage after logout
       } catch (error) {
         console.error("Logout failed:", error.code, error.message);
       }
