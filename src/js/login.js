@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
-      location.href = "../auth/verlog.html";
+      location.href = "../auth/verlog";
     } catch (error) {
       console.error("Login failed:", error.code, error.message);
     }
