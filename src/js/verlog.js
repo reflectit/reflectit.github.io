@@ -3,12 +3,14 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 
 const auth = getAuth(app);
 
-document.addEventListener("DOMContentLoaded", () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      location.href = "../secured/dashboard"; // Redirect if logged in
-    } else {
-      location.href = "../auth/login"; // Redirect to login if not authenticated
-    }
-  });
+onAuthStateChanged(auth, (user) => {
+  console.log("Auth state changed:", user);
+  
+  if (user) {
+    console.log("User authenticated, redirecting...");
+    location.href = "../secured/dashboard";
+  } else {
+    console.log("No user found, redirecting to login...");
+    location.href = "../auth/login";
+  }
 });
