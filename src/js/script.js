@@ -21,7 +21,7 @@ function toggleDarkMode() {
    } else {
      applyLightMode();
    }
-}
+} // <-- MISSING CLOSING BRACE ADDED HERE
 
 function applyLightMode() {
    document.documentElement.setAttribute('data-bs-theme', 'light');
