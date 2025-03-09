@@ -6,9 +6,9 @@ function applyDarkMode() {
    document.querySelector('.sun').style.display = 'none';  
    document.querySelector('.moon').style.display = 'block';
    document.getElementById('checkbox').checked = true;  
- }
- 
- function toggleDarkMode() {
+}
+
+function toggleDarkMode() {
    let theme = document.documentElement.getAttribute('data-bs-theme');
    let newTheme = theme === 'dark' ? 'light' : 'dark';
    document.documentElement.setAttribute('data-bs-theme', newTheme);
@@ -21,9 +21,9 @@ function applyDarkMode() {
    } else {
      applyLightMode();
    }
- }
- 
- function applyLightMode() {
+}
+
+function applyLightMode() {
    document.documentElement.setAttribute('data-bs-theme', 'light');
    document.querySelector('nav').classList.add('navbar-light');
    document.querySelector('nav').classList.remove('navbar-dark', 'bg-dark');
@@ -32,7 +32,7 @@ function applyDarkMode() {
    document.querySelector('.sun').style.display = 'block';  
    document.querySelector('.moon').style.display = 'none';
    document.getElementById('checkbox').checked = false;  
- }
- 
- document.addEventListener('DOMContentLoaded', applyDarkMode);
- document.getElementById('checkbox').addEventListener('change', toggleDarkMode);
+}
+
+document.addEventListener('DOMContentLoaded', applyDarkMode);
+document.getElementById('checkbox').addEventListener('change', toggleDarkMode);
