@@ -45,10 +45,36 @@
   </div>
 </nav>
 
+
 <div class="container mt-5">
     <h2 class="text-center mb-4">Your Journal Entries</h2>
     <div class="list-group" id="entriesList"></div>
 </div>
+
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <input type="text" id="entryTitle" class="form-control me-2" placeholder="Title" style="max-width: 40%;">
+            <select id="entryMood" class="form-select" style="max-width: 25%;">
+                <option selected>Choose mood</option>
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="excited">Excited</option>
+            </select>
+        </div>
+        <textarea id="entryText" class="form-control mb-3" rows="6" placeholder="Write your entry here..."></textarea>
+        <div class="text-center">
+            <button id="saveEntryBtn" class="btn btn-primary">Save Entry</button>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <button id="viewEntriesBtn" class="btn btn-secondary">View Entries</button>
+    <ul id="entriesList" class="list-group mt-3"></ul>
+</div>
+
 
 <footer class="text-center py-3">
 <p>&copy; 2025 Reflect-It. All Rights Reserved.</p>
