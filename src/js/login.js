@@ -1,13 +1,6 @@
 import { app } from "./firebase-config.js";
 import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
 const auth = getAuth(app);
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    location.href = "../secured/dashboard"; // Redirect logged-in users
-  }
-});
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
