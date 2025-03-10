@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reflect-It | Home</title>
+  <title>Reflect-It | Entries</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="../src/sty/style.css">
   <script type="module" src="../src/js/verlog.js"></script>
-  <script src="../src/js/script.js" defer></script>
+  <script src="../src/js/entries.js" defer></script>
   <script type="module" src="../src/js/logout.js"></script>
 </head>
 <body class="bg-light">
@@ -22,10 +22,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <li class="nav-item"><a class="nav-link" href="./dashboard">Dashboard</a></li>
-          <li class="nav-item"><a id="logoutBtn" class="nav-link" href="#">Log Out</a></li>
-        </li>
+        <li class="nav-item"><a class="nav-link" href="./dashboard">Dashboard</a></li>
+        <li class="nav-item"><a id="logoutBtn" class="nav-link" href="#">Log Out</a></li>
       </ul>
       <div class="theme-switch">
         <label class="switch">
@@ -37,8 +35,8 @@
             <svg viewBox="0 0 16 16" class="cloud_1 cloud">
               <path transform="matrix(.77976 0 0 .78395-299.99-418.63)"
                 fill="#fff"
-                d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"
-              ></path>
+                d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925">
+              </path>
             </svg>
           </span>
         </label>
@@ -48,60 +46,13 @@
 </nav>
 
 <div class="container mt-5">
-    <div class="card shadow p-4">
-        <div class="mb-3 d-flex justify-content-between align-items-center">
-            <input type="text" class="form-control me-2" placeholder="Title" style="max-width: 40%;">
-            <select class="form-select" style="max-width: 25%;">
-                <option selected>Choose mood</option>
-                <option value="happy">Happy</option>
-                <option value="sad">Sad</option>
-                <option value="angry">Angry</option>
-                <option value="excited">Excited</option>
-            </select>
-        </div>
-        <textarea class="form-control mb-3" rows="6" placeholder="Write your entry here..."></textarea>
-        <div class="text-center">
-            <button class="btn btn-primary">Save Entry</button>
-        </div>
-    </div>
+    <h2 class="text-center mb-4">Your Journal Entries</h2>
+    <div class="list-group" id="entriesList"></div>
 </div>
 
 <footer class="text-center py-3">
 <p>&copy; 2025 Reflect-It. All Rights Reserved.</p>
 </footer>
 
-<style>
-.hero {
-  position: relative;
-  background: url('../src/imgs/jimg.jpg') no-repeat center center/cover;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
-}
-
-.hero .container {
-  position: relative;
-  z-index: 2;
-}
-
-@media (max-width: 768px) {
-  .hero {
-    height: 60vh;
-    background-position: center top;
-  }
-}
-
-</style>
 </body>
 </html>
