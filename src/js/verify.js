@@ -5,7 +5,7 @@ const db = getFirestore(app);
 document.addEventListener("DOMContentLoaded", async () => {
   const email = sessionStorage.getItem("verificationEmail");
   if (!email) {
-    window.location.href = "signup.html";
+    window.location.href = "../auth/signup";
     return;
   }
 
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     displayAlert("success", "Email verified successfully!");
     setTimeout(() => {
-      window.location.href = "login.html";
+      window.location.href = "../auth/login";
     }, 2000);
   });
 
