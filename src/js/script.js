@@ -1,3 +1,16 @@
+import { app } from "./firebase-config.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const auth = getAuth(app);
+
+document.addEventListener("DOMContentLoaded", () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      location.href = "../secured/dashboard";
+    }
+  });
+});
+
 function applyDarkMode() {
    document.documentElement.setAttribute('data-bs-theme', 'dark');
    document.querySelector('nav').classList.add('navbar-dark', 'bg-dark');
