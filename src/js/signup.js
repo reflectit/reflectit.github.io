@@ -1,5 +1,5 @@
 import { app } from "./firebase-config.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const auth = getAuth(app);
@@ -26,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = emailInput.value;
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
-
-    // Clear previous alerts
     alertContainer.innerHTML = "";
 
     if (password !== confirmPassword) {
@@ -47,32 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db, "users", user.uid), { email: user.email, createdAt: new Date().toISOString() });
+      await sendEmailVerification(user);
+      await setDoc(doc(db, "users", user.uid), { email: user.email, verified: false, createdAt: new Date().toISOString() });
 
-      alert("Account created successfully!");
-      location.href = "../auth/login";
+      displayAlert("success", "Verification email sent! Please check your inbox.");
     } catch (error) {
       displayAlert("danger", `Error: ${error.message}`);
     }
   });
 
- function displayAlert(type, message) {
+  function displayAlert(type, message) {
     const alert = document.createElement("div");
     alert.classList.add("alert", `alert-${type}`);
     alert.setAttribute("role", "alert");
-    alert.innerHTML = message; // Only show the message
+    alert.innerHTML = message;
     alertContainer.appendChild(alert);
-}
+  }
 
-
-  // Validate email format using regular expression
   function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
-  }
-
-  // Capitalize the first letter of the alert type
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 });
