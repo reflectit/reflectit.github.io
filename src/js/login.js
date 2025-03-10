@@ -3,6 +3,12 @@ import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPas
 
 const auth = getAuth(app);
 
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    location.href = "../secured/dashboard"; // Redirect logged-in users
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   if (!loginForm) return;
