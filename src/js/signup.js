@@ -5,6 +5,12 @@ import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    location.href = "../secured/dashboard";
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
   const alertContainer = document.getElementById("alertContainer");
