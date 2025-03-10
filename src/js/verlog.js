@@ -8,12 +8,14 @@ const publicPages = ["/home", "/auth/login", "/auth/signup"];
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    if (!currentPath.startsWith("/secured/dashboard")) {
-      location.href = "/secured/dashboard"; 
+    if (currentPath.includes("/auth/login") || currentPath.includes("/auth/signup")) {
+      location.href = "/secured/dashboard";
+    } else if (currentPath.includes("/home")) {
+      location.href = "../secured/dashboard";
     }
   } else {
-    if (!publicPages.some((page) => currentPath.startsWith(page))) {
-      location.href = "/home"; 
+    if (!publicPages.some((page) => currentPath.includes(page))) {
+      location.href = "/home";
     }
   }
 });
