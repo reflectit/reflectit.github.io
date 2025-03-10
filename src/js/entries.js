@@ -1,8 +1,11 @@
-import { app, db } from "./firebase-config.js"; // Correctly import app and db
+import { app, db } from "./firebase-config.js"; // Ensure correct import
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const auth = getAuth(app);  // Make sure to pass 'app' when getting auth
+// Check if app is correctly initialized
+console.log(app); // Make sure the app object is defined
+
+const auth = getAuth(app);  // Pass the app instance when initializing Auth
 const entriesCollection = collection(db, "entries");
 
 // Save Entry to Firestore
