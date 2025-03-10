@@ -1,11 +1,8 @@
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { app, db } from "./firebase-config.js"; // Correctly import app and db
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { app } from "./firebase-config.js"; // Import the Firebase App
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Initialize services
-const db = getFirestore(app); // Pass app to getFirestore
-const auth = getAuth(app); // Pass app to getAuth
-
+const auth = getAuth(app);  // Make sure to pass 'app' when getting auth
 const entriesCollection = collection(db, "entries");
 
 // Save Entry to Firestore
