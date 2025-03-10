@@ -73,7 +73,13 @@ saveEntryBtn.addEventListener('click', async () => {
     return;
   }
 
-  const entryData = { title, mood, text, date: new Date().toLocaleString() };
+  const entryData = { 
+    title, 
+    mood, 
+    text, 
+    updatedAt: new Date().toLocaleString(),
+    uid: auth.currentUser.uid // Add uid
+  };
 
   if (currentEntryId) {
     // Update entry
@@ -88,6 +94,7 @@ saveEntryBtn.addEventListener('click', async () => {
   editModal.hide();
   fetchEntries(); // Refresh entries
 });
+
 
 // Delete entry
 deleteEntryBtn.addEventListener('click', async () => {
