@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       await setDoc(doc(db, "users", user.uid), { email: user.email, createdAt: new Date().toISOString() });
 
       alert("Account created successfully!");
-      location.href = "../auth/logins.html";
+      location.href = "../auth/login";
     } catch (error) {
       displayAlert("danger", `Error: ${error.message}`);
     }
