@@ -8,11 +8,11 @@ const publicPages = ["/home", "/auth/login", "/auth/signup"];
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    if (!currentPath.includes("/secured/dashboard")) {
-      location.href = "/secured/dashboard";
+    if (!currentPath.startsWith("/secured/dashboard")) {
+      location.href = "/secured/dashboard"; 
     }
   } else {
-    if (!publicPages.some((page) => currentPath.includes(page))) {
+    if (!publicPages.some((page) => currentPath.startsWith(page))) {
       location.href = "/home"; 
     }
   }
