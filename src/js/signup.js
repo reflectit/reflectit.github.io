@@ -1,12 +1,11 @@
 import { app } from "./firebase-config.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
+import { 
+  getAuth, createUserWithEmailAndPassword, sendEmailVerification 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
-const functions = getFunctions(app);
-const sendVerificationEmail = httpsCallable(functions, "sendVerificationEmail");
 
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
@@ -25,27 +24,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      const verificationCode = generateCode();
-      
+
+      // Store user in Firestore
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
-        code: verificationCode,
         verified: false,
         createdAt: new Date().toISOString(),
       });
 
-      await sendVerificationEmail({ email, code: verificationCode });
+      // Send Firebase Email Verification (NO manual OTP needed)
+      await sendEmailVerification(user);
 
-      sessionStorage.setItem("verificationEmail", email);
-      window.location.href = "verify.html";
+      alert("A verification email has been sent. Please check your inbox.");
+      window.location.href = "verify.html"; // Redirect to verification page
     } catch (error) {
       displayAlert("danger", error.message);
     }
   });
-
-  function generateCode() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-  }
 
   function displayAlert(type, message) {
     alertContainer.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
