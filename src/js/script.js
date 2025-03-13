@@ -15,13 +15,12 @@ function toggleDarkMode() {
    if (newTheme === 'dark') {
      document.querySelector('nav').classList.add('navbar-dark', 'bg-dark');
      document.querySelector('nav').classList.remove('navbar-light', 'bg-light');
-     document.body.classList.add('bg-dark', 'text-light');
-     document.querySelector('.sun').style.display = 'none';  
+     document.body.classList.add('bg-dark', 'text-light'); 
      document.querySelector('.moon').style.display = 'block'; 
    } else {
      applyLightMode();
    }
-} // <-- MISSING CLOSING BRACE ADDED HERE
+}
 
 function applyLightMode() {
    document.documentElement.setAttribute('data-bs-theme', 'light');
