@@ -7,11 +7,6 @@ const entriesList = document.getElementById('entriesList');
 const editModal = new bootstrap.Modal(document.getElementById('editModal'));
 const saveEntryBtn = document.getElementById('saveEntryBtn');
 const deleteEntryBtn = document.getElementById('deleteEntryBtn');
-const cancelEditBtn = document.createElement('button');
-cancelEditBtn.className = "btn btn-secondary";
-cancelEditBtn.textContent = "Cancel";
-document.querySelector('.modal-body').appendChild(cancelEditBtn);
-
 let currentEntryId = null;
 
 const fetchEntries = async (user) => {
@@ -101,11 +96,6 @@ saveEntryBtn.addEventListener('click', async () => {
   alert('Entry saved!');
   editModal.hide();
   fetchEntries(auth.currentUser);
-});
-
-cancelEditBtn.addEventListener('click', () => {
-  editModal.hide();
-  currentEntryId = null;
 });
 
 const deleteEntry = async (entryId) => {
