@@ -23,11 +23,11 @@ const fetchEntries = async (user) => {
   entries.forEach(entry => {
     let li = document.createElement('li');
     li.classList.add('list-group-item');
-    
-    const entryDate = entry.updatedAt?.toDate ? entry.updatedAt.toDate() : new Date(entry.updatedAt || entry.createdAt);
-    const formattedDate = isNaN(entryDate.getTime()) ? "Invalid Date" : entryDate.toLocaleDateString('en-US', {
-      month: 'long', day: 'numeric', year: 'numeric'
-    });
+
+    const entryDate = entry.updatedAt?.toDate?.() || entry.createdAt?.toDate?.();
+    const formattedDate = entryDate instanceof Date && !isNaN(entryDate) 
+      ? entryDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) 
+      : "Unknown Date";
 
     li.innerHTML = `
       <strong>${entry.title}</strong> (${entry.mood}) (${formattedDate})<br>${entry.text}
@@ -45,7 +45,6 @@ const fetchEntries = async (user) => {
     button.addEventListener('click', () => deleteEntry(button.getAttribute('data-id')));
   });
 };
-
 onAuthStateChanged(auth, async (user) => {
   if (!user) return;
   fetchEntries(user);
