@@ -1,6 +1,7 @@
 import { app, db } from './firebase-config.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 import { collection, getDocs, addDoc, doc, deleteDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 const auth = getAuth(app);
 const entriesCollection = collection(db, 'entries');
@@ -55,7 +56,8 @@ fetchEntries();
 // Edit entry
 const editEntry = async (entryId) => {
   const docRef = doc(db, 'entries', entryId);
-  const docSnap = await getDoc(docRef); // Corrected here
+  const docSnap = await getDoc(docRef);
+
 
   if (docSnap.exists()) {
     const entry = docSnap.data();
@@ -104,15 +106,15 @@ saveEntryBtn.addEventListener('click', async () => {
 
 
 // Delete entry
-deleteEntryBtn.addEventListener('click', async () => {
-  if (currentEntryId) {
-    const docRef = doc(db, 'entries', currentEntryId);
-    await deleteDoc(docRef);
-    alert('Entry deleted!');
-    editModal.hide();
-    fetchEntries(); // Refresh entries
-  }
-});
+const deleteEntry = async (entryId) => {
+  if (!entryId) return;
+  
+  const docRef = doc(db, 'entries', entryId);
+  await deleteDoc(docRef);
+
+  alert('Entry deleted!');
+  fetchEntries(); // Refresh entries list
+};
 
 // Initial fetch of entries
 fetchEntries();
