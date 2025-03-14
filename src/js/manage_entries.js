@@ -11,40 +11,44 @@ const editModal = new bootstrap.Modal(document.getElementById('editModal'));
 const saveEntryBtn = document.getElementById('saveEntryBtn');
 const deleteEntryBtn = document.getElementById('deleteEntryBtn');
 
-// Fetch and display entries
 const fetchEntries = async () => {
   entriesList.innerHTML = ''; // Clear list
-  const querySnapshot = await getDocs(entriesCollection);
-  const entries = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-  entries.forEach(entry => {
-    let li = document.createElement('li');
-    li.classList.add('list-group-item');
-    li.innerHTML = `
-      <strong>${entry.title}</strong> (${entry.mood})<br>${entry.text}
-      <button class="btn btn-info btn-sm float-end ms-2 editBtn" data-id="${entry.id}">Edit</button>
-      <button class="btn btn-danger btn-sm float-end deleteBtn" data-id="${entry.id}">Delete</button>
-    `;
-    entriesList.appendChild(li);
-  });
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      console.log("No user is signed in.");
+      return;
+    }
 
-  // Edit button click
-  document.querySelectorAll('.editBtn').forEach(button => {
-    button.addEventListener('click', () => {
-      const entryId = button.getAttribute('data-id');
-      editEntry(entryId);
+    const querySnapshot = await getDocs(entriesCollection);
+    const entries = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .filter(entry => entry.uid === user.uid); // Show only current user's entries
+
+    entries.forEach(entry => {
+      let li = document.createElement('li');
+      li.classList.add('list-group-item');
+      li.innerHTML = `
+        <strong>${entry.title}</strong> (${entry.mood})<br>${entry.text}
+        <button class="btn btn-info btn-sm float-end ms-2 editBtn" data-id="${entry.id}">Edit</button>
+        <button class="btn btn-danger btn-sm float-end deleteBtn" data-id="${entry.id}">Delete</button>
+      `;
+      entriesList.appendChild(li);
     });
-  });
 
-  // Delete button click
-  document.querySelectorAll('.deleteBtn').forEach(button => {
-    button.addEventListener('click', () => {
-      const entryId = button.getAttribute('data-id');
-      deleteEntry(entryId);
+    // Attach event listeners for edit and delete buttons
+    document.querySelectorAll('.editBtn').forEach(button => {
+      button.addEventListener('click', () => editEntry(button.getAttribute('data-id')));
+    });
+
+    document.querySelectorAll('.deleteBtn').forEach(button => {
+      button.addEventListener('click', () => deleteEntry(button.getAttribute('data-id')));
     });
   });
 };
 
+// Call fetchEntries after the script loads
+fetchEntries();
 // Edit entry
 const editEntry = async (entryId) => {
   const docRef = doc(db, 'entries', entryId);
