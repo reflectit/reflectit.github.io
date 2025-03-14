@@ -55,7 +55,7 @@ fetchEntries();
 // Edit entry
 const editEntry = async (entryId) => {
   const docRef = doc(db, 'entries', entryId);
-  const docSnap = await getDocs(docRef);
+  const docSnap = await getDoc(docRef); // Corrected here
 
   if (docSnap.exists()) {
     const entry = docSnap.data();
