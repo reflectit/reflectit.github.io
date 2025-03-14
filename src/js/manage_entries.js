@@ -20,10 +20,12 @@ const fetchEntries = async () => {
       return;
     }
 
-    const querySnapshot = await getDocs(entriesCollection);
+    const userEntriesCollection = collection(db, "entries");
+    const querySnapshot = await getDocs(userEntriesCollection);
+
     const entries = querySnapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() }))
-      .filter(entry => entry.uid === user.uid); // Show only current user's entries
+      .filter(doc => doc.data().uid === user.uid) // Only fetch current user's entries
+      .map(doc => ({ id: doc.id, ...doc.data() }));
 
     entries.forEach(entry => {
       let li = document.createElement('li');
@@ -46,6 +48,7 @@ const fetchEntries = async () => {
     });
   });
 };
+
 
 // Call fetchEntries after the script loads
 fetchEntries();
