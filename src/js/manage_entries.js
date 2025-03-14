@@ -111,17 +111,15 @@ cancelEditBtn.addEventListener('click', () => {
   editModal.hide();
   currentEntryId = null;
 });
+deleteEntryBtn.addEventListener('click', async () => {
+  if (!currentEntryId) return;
+  if (!confirm("Are you sure you want to delete this entry?")) return;
 
-document.addEventListener('click', async (event) => {
-  if (event.target.classList.contains('deleteBtn')) {
-    const entryId = event.target.getAttribute('data-id');
-    if (!entryId) return;
+  await deleteDoc(doc(db, 'entries', currentEntryId));
+  alert('Entry deleted!');
 
-    if (confirm("Are you sure you want to delete this entry?")) {
-      await deleteDoc(doc(db, 'entries', entryId));
-      alert('Entry deleted!');
-      fetchEntries(auth.currentUser);
-    }
-  }
+  editModal.hide();
+  currentEntryId = null;
+  fetchEntries(auth.currentUser);
 });
 
