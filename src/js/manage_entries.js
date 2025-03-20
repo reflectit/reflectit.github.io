@@ -7,6 +7,7 @@ const entriesList = document.getElementById('entriesList');
 const editModal = new bootstrap.Modal(document.getElementById('editModal'));
 const saveEntryBtn = document.getElementById('saveEntryBtn');
 const cancelEditBtn = document.getElementById('cancelBtn');
+const deleteEntryBtn = document.getElementById('deleteEntryBtn');
 let currentEntryId = null;
 
 const fetchEntries = async (user) => {
@@ -112,4 +113,16 @@ const deleteEntry = async (entryId) => {
 cancelEditBtn.addEventListener('click', () => {
     editModal.hide();
     currentEntryId = null;
+});
+
+deleteEntryBtn.addEventListener('click', async () => {
+    if (!currentEntryId) return;
+    if (!confirm("Are you sure you want to delete this entry?")) return;
+
+    await deleteDoc(doc(db, 'entries', currentEntryId));
+    alert('Entry deleted!');
+
+    editModal.hide();
+    currentEntryId = null;
+    fetchEntries(auth.currentUser);
 });
