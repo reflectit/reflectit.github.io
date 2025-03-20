@@ -23,8 +23,14 @@ const fetchEntries = async (user) => {
         let li = document.createElement('li');
         li.classList.add('list-group-item');
 
-        let entryDate = entry.updatedAt?.toDate?.() || entry.createdAt?.toDate?.();
-        entryDate = entryDate instanceof Date && !isNaN(entryDate) 
+        let entryDate = null;
+        if (entry.updatedAt?.seconds) {
+            entryDate = new Date(entry.updatedAt.seconds * 1000);
+        } else if (entry.createdAt?.seconds) {
+            entryDate = new Date(entry.createdAt.seconds * 1000);
+        }
+
+        entryDate = entryDate 
             ? entryDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) 
             : "Date not available";
 
