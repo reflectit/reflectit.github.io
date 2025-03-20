@@ -6,7 +6,6 @@ const auth = getAuth(app);
 const entriesList = document.getElementById('entriesList');
 const editModal = new bootstrap.Modal(document.getElementById('editModal'));
 const saveEntryBtn = document.getElementById('saveEntryBtn');
-const deleteEntryBtn = document.getElementById('deleteEntryBtn');
 const cancelEditBtn = document.getElementById('cancelBtn');
 let currentEntryId = null;
 
@@ -25,11 +24,9 @@ const fetchEntries = async (user) => {
         li.classList.add('list-group-item');
 
         let entryDate = entry.updatedAt?.toDate?.() || entry.createdAt?.toDate?.();
-        if (entryDate instanceof Date && !isNaN(entryDate)) {
-            entryDate = entryDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-        } else {
-            entryDate = "Date not available"; // Fixed issue with missing timestamps
-        }
+        entryDate = entryDate instanceof Date && !isNaN(entryDate) 
+            ? entryDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) 
+            : "Date not available";
 
         li.innerHTML = `
             <strong>${entry.title}</strong> (${entry.mood}) (${entryDate})<br>${entry.text}
@@ -49,13 +46,10 @@ const fetchEntries = async (user) => {
 };
 
 onAuthStateChanged(auth, async (user) => {
-    if (!user) return;
-    fetchEntries(user);
+    if (user) fetchEntries(user);
 });
 
 const confirmEdit = async (entryId) => {
-    if (!confirm("Are you sure you want to edit this entry?")) return;
-
     const docRef = doc(db, 'entries', entryId);
     const docSnap = await getDoc(docRef);
 
@@ -90,38 +84,26 @@ saveEntryBtn.addEventListener('click', async () => {
     };
 
     if (currentEntryId) {
-        const docRef = doc(db, 'entries', currentEntryId);
-        await updateDoc(docRef, entryData);
+        await updateDoc(doc(db, 'entries', currentEntryId), entryData);
     } else {
         await addDoc(collection(db, 'entries'), { ...entryData, createdAt: serverTimestamp() });
     }
 
     alert('Entry saved!');
     editModal.hide();
+    currentEntryId = null;
     fetchEntries(auth.currentUser);
 });
 
 const deleteEntry = async (entryId) => {
-    if (!confirm("Are you sure you want to delete this entry?")) return;
-
-    await deleteDoc(doc(db, 'entries', entryId));
-    alert('Entry deleted!');
-    fetchEntries(auth.currentUser);
+    if (confirm("Are you sure you want to delete this entry?")) {
+        await deleteDoc(doc(db, 'entries', entryId));
+        alert('Entry deleted!');
+        fetchEntries(auth.currentUser);
+    }
 };
 
 cancelEditBtn.addEventListener('click', () => {
     editModal.hide();
     currentEntryId = null;
-});
-
-deleteEntryBtn.addEventListener('click', async () => {
-    if (!currentEntryId) return;
-    if (!confirm("Are you sure you want to delete this entry?")) return;
-
-    await deleteDoc(doc(db, 'entries', currentEntryId));
-    alert('Entry deleted!');
-
-    editModal.hide();
-    currentEntryId = null;
-    fetchEntries(auth.currentUser);
 });
