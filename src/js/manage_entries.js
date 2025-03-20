@@ -24,16 +24,7 @@ const fetchEntries = async (user) => {
         let li = document.createElement('li');
         li.classList.add('list-group-item');
 
-        let entryDate = null;
-        if (entry.updatedAt?.seconds) {
-            entryDate = new Date(entry.updatedAt.seconds * 1000);
-        } else if (entry.createdAt?.seconds) {
-            entryDate = new Date(entry.createdAt.seconds * 1000);
-        }
-
-        entryDate = entryDate 
-            ? entryDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) 
-            : "Date not available";
+        let entryDate = entry.date ? entry.date : "Date not available";
 
         li.innerHTML = `
             <strong>${entry.title}</strong> (${entry.mood}) (${entryDate})<br>${entry.text}
@@ -83,11 +74,11 @@ saveEntryBtn.addEventListener('click', async () => {
     }
 
     const entryData = { 
-        title, 
-        mood, 
-        text, 
-        updatedAt: serverTimestamp(), 
-        uid: auth.currentUser.uid
+       title, 
+       mood, 
+       text, 
+       date: new Date().toLocaleString(),
+       uid: auth.currentUser.uid
     };
 
     if (currentEntryId) {
