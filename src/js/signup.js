@@ -7,6 +7,11 @@ import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const blockedDomains = [
+  "reisuke.com", "tempmail.com", "mailinator.com", "guerrillamail.com",
+  "10minutemail.com", "throwawaymail.com", "fakeinbox.com", "yopmail.com"
+];
+
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
   const alertContainer = document.getElementById("alertContainer");
@@ -21,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (password !== confirmPassword) return displayAlert("danger", "Passwords do not match!");
     if (!validateEmail(email)) return displayAlert("danger", "Invalid email format.");
     if (password.length < 6) return displayAlert("danger", "Password must be at least 6 characters.");
+    if (isBlockedEmail(email)) return displayAlert("danger", "This email provider is not allowed.");
 
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
@@ -32,11 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
         createdAt: new Date().toISOString(),
       });
 
-      // Send Firebase Email Verification (NO manual OTP needed)
+      // Send Firebase Email Verification
       await sendEmailVerification(user);
 
       alert("A verification email has been sent. Please check your inbox.");
-      window.location.href = "verify.html"; // Redirect to verification page
+      window.location.href = "verify.html";
     } catch (error) {
       displayAlert("danger", error.message);
     }
@@ -48,5 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function validateEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function isBlockedEmail(email) {
+    return blockedDomains.some(domain => email.endsWith("@" + domain));
   }
 });
